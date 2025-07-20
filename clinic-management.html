@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanvi Herbals - Clinic Management</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Remove redundant inline styles and update navigation/sidebar below */
+        /* Header Navigation */
+        .navbar {
+            background: var(--white) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-green) !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--dark-gray) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: var(--soft-cream);
+            color: var(--primary-green) !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            background-color: var(--primary-green);
+            color: var(--white) !important;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: var(--white);
+            min-height: calc(100vh - 80px);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link {
+            color: var(--dark-gray);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--soft-cream);
+            border-left-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--soft-cream);
+            border-left-color: var(--primary-green);
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .page-title {
+            color: var(--dark-gray);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #6C757D;
+            margin-bottom: 0;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-input {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6C757D;
+            z-index: 10;
+        }
+
+        .filter-select {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        /* Button Styles */
+        .btn-primary-custom {
+            background: var(--primary-green);
+            border: none;
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            color: var(--white);
+        }
+
+        /* .btn-outline-custom {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            background: transparent;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--primary-green);
+            color: var(--white);
+            transform: translateY(-1px);
+        } */
+
+        /* Table Styles */
+        .table-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background-color: var(--light-gray);
+            border: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            padding: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            border: none;
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--soft-cream);
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+
+        .status-inactive {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-red);
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+            color: var(--white);
+            border-radius: 16px 16px 0 0;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        /* Form Styles */
+        /* .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating .form-control:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        .form-floating .form-control.is-invalid {
+            border-color: var(--error-red);
+        } */
+
+        .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        /* Pagination */
+        .pagination .page-link {
+            color: var(--primary-green);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--soft-cream);
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .btn-sm-custom {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading Animation */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Success Animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success-animation {
+            animation: successPulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/img/logo.jpeg" alt="Tanvi Logo" class="tanvi-navbar-logo">
+                <span class="tanvi-navbar-text">Tanvi Herbals</span>
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-nav ms-auto d-none d-lg-flex">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check me-1"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge me-1"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people me-1"></i>Patients</a>
+                <a class="nav-link active" href="clinic-management.html"><i class="bi bi-building me-1"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical me-1"></i>Records</a>
+                <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up me-1"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar (Desktop) -->
+    <nav class="sidebar d-none d-lg-block">
+        <div class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+            <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+            <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+            <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+            <a class="nav-link active" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+            <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+            <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+            <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </nav>
+    <!-- Mobile Sidebar Offcanvas -->
+    <div class="offcanvas offcanvas-start" id="sidebarOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-success">Tanvi Herbals</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="nav flex-column">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+                <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+                <a class="nav-link active" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+                <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid px-0">
+            <!-- Page Header -->
+            <div class="card shadow mb-4 p-4 border-0">
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                    <div>
+                        <h1 class="fw-bold mb-1 d-flex align-items-center" style="font-family: 'Poppins',sans-serif;font-size:2rem;"><i class="bi bi-building me-2 text-primary-custom"></i>Clinic Management</h1>
+                        <p class="text-muted mb-0">Manage all clinics and their administrators</p>
+                    </div>
+                    <button class="btn btn-primary-custom d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#clinicModal" onclick="openAddModal()"><i class="bi bi-plus-circle me-2"></i>Add New Clinic</button>
+                </div>
+            </div>
+            <!-- Search and Filter Section -->
+            <div class="card shadow mb-4 p-4 border-0">
+                <form>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search clinics...">
+                                <label for="searchInput"><i class="bi bi-search me-2"></i>Search clinics...</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="locationFilter">
+                                    <option value="">All Locations</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="delhi">Delhi</option>
+                                    <option value="bangalore">Bangalore</option>
+                                    <option value="chennai">Chennai</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Table Container -->
+            <div class="card shadow mb-4 p-0 border-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="bg-soft-cream">
+                            <tr>
+                                <th class="text-uppercase">Clinic Name</th>
+                                <th class="text-uppercase">Location</th>
+                                <th class="text-uppercase">Admin Name</th>
+                                <th class="text-uppercase">Status</th>
+                                <th class="text-uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="bi bi-building text-success"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">Tanvi Herbals - Main Branch</div>
+                                            <small class="text-muted">ID: CL001</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-medium">Mumbai, Maharashtra</div>
+                                        <small class="text-muted">Andheri West</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                                            <i class="bi bi-person text-primary"></i>
+                                        </div>
+                                        <span class="fw-medium">Dr. Rajesh Kumar</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="editClinic(1)"><i class="bi bi-pencil me-1"></i>Edit</button>
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="deleteClinic(1)"><i class="bi bi-trash me-1"></i>Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="bi bi-building text-success"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">Tanvi Herbals - North Branch</div>
+                                            <small class="text-muted">ID: CL002</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-medium">Delhi, NCR</div>
+                                        <small class="text-muted">Dwarka Sector 12</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                                            <i class="bi bi-person text-primary"></i>
+                                        </div>
+                                        <span class="fw-medium">Dr. Meera Singh</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="editClinic(2)"><i class="bi bi-pencil me-1"></i>Edit</button>
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="deleteClinic(2)"><i class="bi bi-trash me-1"></i>Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="bi bi-building text-success"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">Tanvi Herbals - South Branch</div>
+                                            <small class="text-muted">ID: CL003</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-medium">Bangalore, Karnataka</div>
+                                        <small class="text-muted">Koramangala</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                                            <i class="bi bi-person text-primary"></i>
+                                        </div>
+                                        <span class="fw-medium">Dr. Priya Sharma</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-inactive">Inactive</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="editClinic(3)"><i class="bi bi-pencil me-1"></i>Edit</button>
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="deleteClinic(3)"><i class="bi bi-trash me-1"></i>Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                            <i class="bi bi-building text-success"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">Tanvi Herbals - East Branch</div>
+                                            <small class="text-muted">ID: CL004</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-medium">Chennai, Tamil Nadu</div>
+                                        <small class="text-muted">T Nagar</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                                            <i class="bi bi-person text-primary"></i>
+                                        </div>
+                                        <span class="fw-medium">Dr. Amit Patel</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="editClinic(4)"><i class="bi bi-pencil me-1"></i>Edit</button>
+                                        <button class="btn btn-outline-custom btn-sm d-flex align-items-center" onclick="deleteClinic(4)"><i class="bi bi-trash me-1"></i>Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <nav aria-label="Clinic pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Clinic Modal -->
+    <div class="modal fade" id="clinicModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-building me-2"></i>
+                        <span id="modalTitle">Add New Clinic</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="clinicForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="clinicName" placeholder="Clinic Name" required>
+                                    <label for="clinicName">Clinic Name</label>
+                                    <div class="invalid-feedback">
+                                        Please enter clinic name.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="clinicStatus" required>
+                                        <option value="">Select Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select status.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <textarea class="form-control" id="clinicAddress" placeholder="Address" style="height: 100px" required></textarea>
+                            <label for="clinicAddress">Address</label>
+                            <div class="invalid-feedback">
+                                Please enter clinic address.
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="clinicCity" placeholder="City" required>
+                                    <label for="clinicCity">City</label>
+                                    <div class="invalid-feedback">
+                                        Please enter city.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="clinicState" placeholder="State" required>
+                                    <label for="clinicState">State</label>
+                                    <div class="invalid-feedback">
+                                        Please enter state.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="clinicPincode" placeholder="Pincode" required>
+                                    <label for="clinicPincode">Pincode</label>
+                                    <div class="invalid-feedback">
+                                        Please enter pincode.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="clinicPhone" placeholder="Phone Number" required>
+                                    <label for="clinicPhone">Phone Number</label>
+                                    <div class="invalid-feedback">
+                                        Please enter phone number.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <select class="form-select" id="clinicAdmin" required>
+                                <option value="">Select Admin</option>
+                                <option value="1">Dr. Rajesh Kumar</option>
+                                <option value="2">Dr. Meera Singh</option>
+                                <option value="3">Dr. Priya Sharma</option>
+                                <option value="4">Dr. Amit Patel</option>
+                                <option value="5">Dr. Sunita Devi</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select an admin.
+                            </div>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <textarea class="form-control" id="clinicDescription" placeholder="Description" style="height: 100px"></textarea>
+                            <label for="clinicDescription">Description (Optional)</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="saveClinic()">
+                        <span class="btn-text">Save Clinic</span>
+                        <span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                            Saving...
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Confirm Delete
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this clinic? This action cannot be undone.</p>
+                    <div class="alert alert-warning">
+                        <i class="bi bi-info-circle me-2"></i>
+                        All associated data (patients, appointments, etc.) will also be removed.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-delete" onclick="confirmDelete()">
+                        <span class="btn-text">Delete Clinic</span>
+                        <span class="btn-loading d-none">
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                            Deleting...
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        let currentClinicId = null;
+        let clinicsData = [
+            {
+                id: 1,
+                name: "Tanvi Herbals - Main Branch",
+                address: "Andheri West, Mumbai, Maharashtra",
+                city: "Mumbai",
+                state: "Maharashtra",
+                pincode: "400058",
+                phone: "+91 98765 43210",
+                admin: "1",
+                status: "active",
+                description: "Main branch of Tanvi Herbals"
+            },
+            {
+                id: 2,
+                name: "Tanvi Herbals - North Branch",
+                address: "Dwarka Sector 12, Delhi, NCR",
+                city: "Delhi",
+                state: "NCR",
+                pincode: "110075",
+                phone: "+91 98765 43211",
+                admin: "2",
+                status: "active",
+                description: "North branch of Tanvi Herbals"
+            },
+            {
+                id: 3,
+                name: "Tanvi Herbals - South Branch",
+                address: "Koramangala, Bangalore, Karnataka",
+                city: "Bangalore",
+                state: "Karnataka",
+                pincode: "560034",
+                phone: "+91 98765 43212",
+                admin: "3",
+                status: "inactive",
+                description: "South branch of Tanvi Herbals"
+            },
+            {
+                id: 4,
+                name: "Tanvi Herbals - East Branch",
+                address: "T Nagar, Chennai, Tamil Nadu",
+                city: "Chennai",
+                state: "Tamil Nadu",
+                pincode: "600017",
+                phone: "+91 98765 43213",
+                admin: "4",
+                status: "active",
+                description: "East branch of Tanvi Herbals"
+            }
+        ];
+
+        // Search and Filter Functionality
+        document.getElementById('searchInput').addEventListener('input', filterClinics);
+        document.getElementById('statusFilter').addEventListener('change', filterClinics);
+        document.getElementById('locationFilter').addEventListener('change', filterClinics);
+
+        function filterClinics() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const table = document.getElementById('clinicsTable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const clinicName = row.cells[0].textContent.toLowerCase();
+                const location = row.cells[1].textContent.toLowerCase();
+                const status = row.cells[3].textContent.toLowerCase();
+
+                const matchesSearch = clinicName.includes(searchTerm);
+                const matchesStatus = !statusFilter || status.includes(statusFilter);
+                const matchesLocation = !locationFilter || location.includes(locationFilter);
+
+                row.style.display = matchesSearch && matchesStatus && matchesLocation ? '' : 'none';
+            }
+        }
+
+        // Modal Functions
+        function openAddModal() {
+            currentClinicId = null;
+            document.getElementById('modalTitle').textContent = 'Add New Clinic';
+            document.getElementById('clinicForm').reset();
+            document.getElementById('clinicForm').classList.remove('was-validated');
+        }
+
+        function editClinic(clinicId) {
+            currentClinicId = clinicId;
+            const clinic = clinicsData.find(c => c.id === clinicId);
+            
+            if (clinic) {
+                document.getElementById('modalTitle').textContent = 'Edit Clinic';
+                document.getElementById('clinicName').value = clinic.name;
+                document.getElementById('clinicStatus').value = clinic.status;
+                document.getElementById('clinicAddress').value = clinic.address;
+                document.getElementById('clinicCity').value = clinic.city;
+                document.getElementById('clinicState').value = clinic.state;
+                document.getElementById('clinicPincode').value = clinic.pincode;
+                document.getElementById('clinicPhone').value = clinic.phone;
+                document.getElementById('clinicAdmin').value = clinic.admin;
+                document.getElementById('clinicDescription').value = clinic.description || '';
+                
+                document.getElementById('clinicForm').classList.remove('was-validated');
+            }
+        }
+
+        function saveClinic() {
+            const form = document.getElementById('clinicForm');
+            
+            if (form.checkValidity()) {
+                showLoading(document.querySelector('#clinicModal .btn-primary-custom'));
+                
+                // Simulate API call
+                setTimeout(() => {
+                    hideLoading(document.querySelector('#clinicModal .btn-primary-custom'));
+                    
+                    // Close modal and show success message
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('clinicModal'));
+                    modal.hide();
+                    
+                    showAlert(currentClinicId ? 'Clinic updated successfully!' : 'Clinic added successfully!', 'success');
+                    
+                    // Refresh table or add new row
+                    if (!currentClinicId) {
+                        // Add new clinic logic
+                        addNewClinicToTable();
+                    }
+                }, 2000);
+            } else {
+                form.classList.add('was-validated');
+            }
+        }
+
+        function deleteClinic(clinicId) {
+            currentClinicId = clinicId;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+
+        function confirmDelete() {
+            showLoading(document.querySelector('#deleteModal .btn-delete'));
+            
+            // Simulate API call
+            setTimeout(() => {
+                hideLoading(document.querySelector('#deleteModal .btn-delete'));
+                
+                // Close modal and show success message
+                const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                modal.hide();
+                
+                showAlert('Clinic deleted successfully!', 'success');
+                
+                // Remove row from table
+                removeClinicFromTable(currentClinicId);
+            }, 2000);
+        }
+
+        function addNewClinicToTable() {
+            // This would typically add a new row to the table
+            // For demo purposes, we'll just show a success message
+            console.log('New clinic would be added to table');
+        }
+
+        function removeClinicFromTable(clinicId) {
+            // This would typically remove the row from the table
+            // For demo purposes, we'll just show a success message
+            console.log('Clinic would be removed from table');
+        }
+
+        // Helper Functions
+        function showLoading(button) {
+            const btnText = button.querySelector('.btn-text');
+            const btnLoading = button.querySelector('.btn-loading');
+            
+            btnText.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+            button.disabled = true;
+        }
+
+        function hideLoading(button) {
+            const btnText = button.querySelector('.btn-text');
+            const btnLoading = button.querySelector('.btn-loading');
+            
+            btnText.classList.remove('d-none');
+            btnLoading.classList.add('d-none');
+            button.disabled = false;
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Phone number validation
+            document.getElementById('clinicPhone').addEventListener('input', function() {
+                const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+                if (!phoneRegex.test(this.value)) {
+                    this.setCustomValidity('Please enter a valid phone number');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+
+            // Pincode validation
+            document.getElementById('clinicPincode').addEventListener('input', function() {
+                const pincodeRegex = /^[0-9]{6}$/;
+                if (!pincodeRegex.test(this.value)) {
+                    this.setCustomValidity('Please enter a valid 6-digit pincode');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

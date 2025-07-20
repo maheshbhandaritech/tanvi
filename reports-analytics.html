@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanvi Herbals - Reports & Analytics</title>
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <!-- Remove redundant inline styles and update navigation/sidebar below -->
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/img/logo.jpeg" alt="Tanvi Logo" class="tanvi-navbar-logo">
+                <span class="tanvi-navbar-text">Tanvi Herbals</span>
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-nav ms-auto d-none d-lg-flex">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check me-1"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge me-1"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people me-1"></i>Patients</a>
+                <a class="nav-link" href="clinic-management.html"><i class="bi bi-building me-1"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical me-1"></i>Records</a>
+                <a class="nav-link active" href="reports-analytics.html"><i class="bi bi-graph-up me-1"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar (Desktop) -->
+    <nav class="sidebar d-none d-lg-block">
+        <div class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+            <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+            <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+            <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+            <a class="nav-link" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+            <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+            <a class="nav-link active" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+            <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </nav>
+    <!-- Mobile Sidebar Offcanvas -->
+    <div class="offcanvas offcanvas-start" id="sidebarOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-success">Tanvi Herbals</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="nav flex-column">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+                <a class="nav-link" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+                <a class="nav-link" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+                <a class="nav-link active" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- All forms, buttons, alerts, cards, and tables should use global classes and floating labels. Remove any redundant inline styles. -->
+</head>
+<body>
+<div class="main-content">
+    <div class="container-fluid px-0">
+        <!-- Reports & Analytics Header and Filters -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary-custom text-white d-flex align-items-center" style="font-size:1.25rem;font-family:'Poppins',sans-serif;">
+                <i class="bi bi-graph-up me-2"></i>Reports & Analytics
+            </div>
+            <div class="card-body">
+                <form id="reportForm">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-floating mb-2">
+                                <select class="form-select" id="reportType" required>
+                                    <option value="">Select Report Type</option>
+                                    <option value="appointments">Appointment Reports</option>
+                                    <option value="patient-inflow">Patient Inflow</option>
+                                    <option value="revenue">Revenue Analysis</option>
+                                    <option value="doctor-performance">Doctor Performance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-floating mb-2">
+                                <input type="date" class="form-control" id="startDate" required>
+                                <label for="startDate">Start Date</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-floating mb-2">
+                                <input type="date" class="form-control" id="endDate" required>
+                                <label for="endDate">End Date</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-floating mb-2">
+                                <select class="form-select" id="clinicFilter">
+                                    <option value="">All Clinics</option>
+                                    <option value="main">Thane Branch</option>
+                                    <option value="north">Kalyan Branch</option>
+                                    <option value="south">Mumbai Branch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-end mt-1">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-floating mb-2">
+                                <select class="form-select" id="doctorFilter">
+                                    <option value="">All Doctors</option>
+                                    <option value="1">Dr. Rajesh Kumar</option>
+                                    <option value="2">Dr. Meera Singh</option>
+                                    <option value="3">Dr. Priya Sharma</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-6 d-flex justify-content-end align-items-end">
+                            <button type="submit" class="btn btn-primary-custom px-4">
+                                <i class="bi bi-play-circle me-2"></i>Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Summary Statistics -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card shadow-sm text-center py-3">
+                    <div class="fs-3 fw-bold text-primary-custom">1,247</div>
+                    <div class="text-muted">Total Patients</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card shadow-sm text-center py-3">
+                    <div class="fs-3 fw-bold text-primary-custom">856</div>
+                    <div class="text-muted">Appointments</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card shadow-sm text-center py-3">
+                    <div class="fs-3 fw-bold text-primary-custom">1,270</div>
+                    <div class="text-muted">Total Download</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card shadow-sm text-center py-3">
+                    <div class="fs-3 fw-bold text-primary-custom">94%</div>
+                    <div class="text-muted">Satisfaction Rate</div>
+                </div>
+            </div>
+        </div>
+        <!-- Charts Section -->
+        <!-- <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary-custom text-white d-flex align-items-center">
+                        <i class="bi bi-bar-chart me-2"></i>Appointment Trends
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart-placeholder text-center">
+                                <i class="bi bi-bar-chart display-5"></i>
+                                <h5 class="fw-bold mt-2">Appointment Trends Chart</h5>
+                                <p class="text-muted">Line chart showing appointment trends over time</p>
+                                <div class="d-flex justify-content-center mt-3 gap-2">
+                                    <span class="badge bg-success bg-opacity-75">● This Month</span>
+                                    <span class="badge bg-primary bg-opacity-75">● Last Month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-primary-custom text-white d-flex align-items-center">
+                        <i class="bi bi-pie-chart me-2"></i>Patient Distribution
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart-placeholder text-center">
+                                <i class="bi bi-pie-chart display-5"></i>
+                                <h5 class="fw-bold mt-2">Patient Distribution</h5>
+                                <p class="text-muted">Pie chart showing patient distribution by clinic</p>
+                                <div class="text-start mt-3">
+                                    <div>Main Branch <span class="fw-bold float-end">45%</span></div>
+                                    <div>North Branch <span class="fw-bold float-end">30%</span></div>
+                                    <div>South Branch <span class="fw-bold float-end">25%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Export Section -->
+        <div class="card shadow p-4 mb-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-download me-2 text-primary-custom"></i>
+                <span class="fw-bold" style="font-family:'Poppins',sans-serif;">Export Reports</span>
+            </div>
+            <div class="d-flex flex-wrap gap-3">
+                <button class="btn btn-outline-custom flex-fill d-flex align-items-center justify-content-center">
+                    <i class="bi bi-file-earmark-excel me-2"></i>Download as Excel
+                </button>
+                <button class="btn btn-outline-custom flex-fill d-flex align-items-center justify-content-center">
+                    <i class="bi bi-file-earmark-pdf me-2"></i>Download as PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Set default date range (last 30 days)
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
+    
+    document.getElementById('endDate').value = today.toISOString().split('T')[0];
+    document.getElementById('startDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+});
+
+// Form submission
+document.getElementById('reportForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Generating...';
+    submitBtn.disabled = true;
+    
+    // Simulate report generation
+    setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        showAlert('Report generated successfully!', 'success');
+    }, 2000);
+});
+
+// Export functionality
+function exportReport(type) {
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    
+    if (type === 'excel') {
+        btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Exporting Excel...';
+    } else {
+        btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Exporting PDF...';
+    }
+    
+    btn.disabled = true;
+    
+    // Simulate export
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        showAlert(`${type.toUpperCase()} report downloaded successfully!`, 'success');
+    }, 1500);
+}
+
+// Helper function to show alerts
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+</script>
+</body>
+</html> 

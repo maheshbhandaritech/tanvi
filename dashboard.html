@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanvi Herbals - Dashboard</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-green: #4CAF50;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --dark-gray: #343A40;
+            --border-color: #E9ECEF;
+            --success-green: #28A745;
+            --warning-orange: #FF9800;
+            --info-blue: #2196F3;
+            --purple: #9C27B0;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .navbar {
+            background: var(--white) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-green) !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--dark-gray) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: var(--soft-cream);
+            color: var(--primary-green) !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            background-color: var(--primary-green);
+            color: var(--white) !important;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: var(--white);
+            min-height: calc(100vh - 80px);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link {
+            color: var(--dark-gray);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--soft-cream);
+            border-left-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--soft-cream);
+            border-left-color: var(--primary-green);
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .dashboard-title {
+            color: var(--dark-gray);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            color: #6C757D;
+            margin-bottom: 0;
+        }
+
+        /* Summary Cards */
+        .summary-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), #45a049);
+        }
+
+        .summary-card.clinics::before {
+            background: linear-gradient(90deg, var(--primary-green), #45a049);
+        }
+
+        .summary-card.patients::before {
+            background: linear-gradient(90deg, var(--info-blue), #1976D2);
+        }
+
+        .summary-card.appointments::before {
+            background: linear-gradient(90deg, var(--warning-orange), #F57C00);
+        }
+
+        .summary-card.doctors::before {
+            background: linear-gradient(90deg, var(--purple), #7B1FA2);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .card-icon.clinics {
+            background: linear-gradient(135deg, var(--primary-green), #45a049);
+        }
+
+        .card-icon.patients {
+            background: linear-gradient(135deg, var(--info-blue), #1976D2);
+        }
+
+        .card-icon.appointments {
+            background: linear-gradient(135deg, var(--warning-orange), #F57C00);
+        }
+
+        .card-icon.doctors {
+            background: linear-gradient(135deg, var(--purple), #7B1FA2);
+        }
+
+        .card-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-label {
+            color: #6C757D;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-change {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .card-change.positive {
+            color: var(--success-green);
+        }
+
+        .card-change.negative {
+            color: var(--error-red);
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-title {
+            color: var(--dark-gray);
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .chart-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            color: #6C757D;
+            text-align: center;
+        }
+
+        .chart-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .chart-placeholder h5 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-placeholder p {
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .quick-actions-title {
+            color: var(--dark-gray);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-button {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            color: var(--dark-gray);
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .action-button:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+            text-decoration: none;
+        }
+
+        .action-button i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .action-button .btn-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Button Styles */
+        .btn-primary-custom {
+            background: var(--primary-green);
+            border: none;
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            color: var(--white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+            
+            .summary-card {
+                margin-bottom: 1rem;
+            }
+            
+            .chart-container {
+                margin-bottom: 1rem;
+            }
+            
+            .action-button {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Success Animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success-animation {
+            animation: successPulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-leaf-fill me-2"></i>
+                Tanvi Herbals
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Desktop Navigation -->
+            <div class="navbar-nav ms-auto d-none d-lg-flex">
+                <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                <a class="nav-link" href="#"><i class="bi bi-calendar-check me-1"></i>Appointments</a>
+                <a class="nav-link" href="#"><i class="bi bi-person-badge me-1"></i>Doctors</a>
+                <a class="nav-link" href="#"><i class="bi bi-people me-1"></i>Patients</a>
+                <a class="nav-link" href="#"><i class="bi bi-building me-1"></i>Clinics</a>
+                <a class="nav-link" href="#"><i class="bi bi-graph-up me-1"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar (Desktop) -->
+    <nav class="sidebar d-none d-lg-block">
+        <div class="nav flex-column">
+            <a class="nav-link active" href="#">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-calendar-check"></i>
+                Appointments
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-person-badge"></i>
+                Doctors
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-people"></i>
+                Patients
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-building"></i>
+                Clinics
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-pills"></i>
+                Medicines
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-graph-up"></i>
+                Reports
+            </a>
+            <a class="nav-link" href="#">
+                <i class="bi bi-gear"></i>
+                Settings
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar Offcanvas -->
+    <div class="offcanvas offcanvas-start" id="sidebarOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-success">Tanvi Herbals</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="nav flex-column">
+                <a class="nav-link active" href="#">
+                    <i class="bi bi-speedometer2"></i>
+                    Dashboard
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-calendar-check"></i>
+                    Appointments
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-person-badge"></i>
+                    Doctors
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-people"></i>
+                    Patients
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-building"></i>
+                    Clinics
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-pills"></i>
+                    Medicines
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-graph-up"></i>
+                    Reports
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-gear"></i>
+                    Settings
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">
+                <i class="bi bi-speedometer2 me-2"></i>
+                Clinic Overview
+            </h1>
+            <p class="dashboard-subtitle">Welcome back! Here's what's happening at Tanvi Herbals today.</p>
+        </div>
+
+        <!-- Top Section: Summary Cards -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="summary-card clinics">
+                    <div class="card-icon clinics">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="card-number">12</div>
+                    <div class="card-label">Total Clinics</div>
+                    <div class="card-change positive">
+                        <i class="bi bi-arrow-up me-1"></i>
+                        +2 this month
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="summary-card patients">
+                    <div class="card-icon patients">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="card-number">1,247</div>
+                    <div class="card-label">Total Patients</div>
+                    <div class="card-change positive">
+                        <i class="bi bi-arrow-up me-1"></i>
+                        +45 this week
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="summary-card appointments">
+                    <div class="card-icon appointments">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="card-number">23</div>
+                    <div class="card-label">Today's Appointments</div>
+                    <div class="card-change positive">
+                        <i class="bi bi-arrow-up me-1"></i>
+                        +5 from yesterday
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="summary-card doctors">
+                    <div class="card-icon doctors">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="card-number">8</div>
+                    <div class="card-label">Active Doctors</div>
+                    <div class="card-change positive">
+                        <i class="bi bi-arrow-up me-1"></i>
+                        +1 this month
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Section: Charts -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mb-3">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h5 class="chart-title">Patient Visits</h5>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary active">Week</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Month</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Year</button>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <i class="bi bi-bar-chart"></i>
+                        <h5>Patient Visits Chart</h5>
+                        <p>Bar chart showing patient visit trends over time</p>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="bg-success bg-opacity-10 rounded p-2 me-2">
+                                <small class="text-success">● This Week</small>
+                            </div>
+                            <div class="bg-primary bg-opacity-10 rounded p-2">
+                                <small class="text-primary">● Last Week</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h5 class="chart-title">Appointment Types</h5>
+                    </div>
+                    <div class="chart-placeholder">
+                        <i class="bi bi-pie-chart"></i>
+                        <h5>Appointment Distribution</h5>
+                        <p>Pie chart showing different appointment types</p>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <small>Consultation</small>
+                                <small class="fw-bold">45%</small>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <small>Follow-up</small>
+                                <small class="fw-bold">30%</small>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <small>Emergency</small>
+                                <small class="fw-bold">15%</small>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small>Others</small>
+                                <small class="fw-bold">10%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section: Quick Actions -->
+        <div class="row">
+            <div class="col-12">
+                <div class="quick-actions">
+                    <h5 class="quick-actions-title">
+                        <i class="bi bi-lightning me-2"></i>
+                        Quick Actions
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#" class="action-button">
+                                <i class="bi bi-building"></i>
+                                <span class="btn-text">Add Clinic</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#" class="action-button">
+                                <i class="bi bi-person-plus"></i>
+                                <span class="btn-text">Add Patient</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#" class="action-button">
+                                <i class="bi bi-calendar-plus"></i>
+                                <span class="btn-text">Add Appointment</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#" class="action-button">
+                                <i class="bi bi-file-earmark-medical"></i>
+                                <span class="btn-text">Upload Prescription</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add active class to current nav item
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                });
+            });
+
+            // Close mobile sidebar when clicking on a link
+            const mobileNavLinks = document.querySelectorAll('#sidebarOffcanvas .nav-link');
+            const offcanvas = document.getElementById('sidebarOffcanvas');
+            const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvas);
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (bsOffcanvas) {
+                        bsOffcanvas.hide();
+                    }
+                });
+            });
+
+            // Quick action button click handlers
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const action = this.querySelector('.btn-text').textContent;
+                    
+                    // Show loading state
+                    const icon = this.querySelector('i');
+                    const originalIcon = icon.className;
+                    icon.className = 'bi bi-hourglass-split';
+                    
+                    // Simulate action
+                    setTimeout(() => {
+                        icon.className = originalIcon;
+                        showAlert(`${action} action initiated!`, 'success');
+                    }, 1000);
+                });
+            });
+
+            // Chart period buttons
+            const periodButtons = document.querySelectorAll('.btn-group .btn');
+            periodButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    periodButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Simulate chart update
+                    showAlert('Chart updated!', 'info');
+                });
+            });
+
+            // Helper function to show alerts
+            function showAlert(message, type) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                document.body.appendChild(alertDiv);
+                
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 3000);
+            }
+
+            // Animate summary cards on load
+            const summaryCards = document.querySelectorAll('.summary-card');
+            summaryCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 
