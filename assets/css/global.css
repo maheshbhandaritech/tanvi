@@ -1,1 +1,495 @@
+/* Tanvi Herbals - Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+    /* Logo-inspired colors */
+    --primary-teal: #20B2AA;         /* Bright teal from logo top */
+    --primary-green: #228B22;        /* Deep forest green from logo bottom */
+    --primary-green-dark: #006400;   /* Darker green for hover states */
+    --accent-green: #32CD32;         /* Accent green from logo emblem */
+    
+    /* Supporting colors */
+    --soft-cream: #F5F5DC;
+    --white: #FFFFFF;
+    --light-gray: #F8F9FA;
+    --gray-200: #E9ECEF;
+    --gray-600: #6C757D;
+    --gray-800: #343A40;
+    --gray-900: #212529;
+    
+    /* Status colors */
+    --success: #28A745;
+    --warning: #FFC107;
+    --danger: #DC3545;
+    --info: #17A2B8;
+    
+    /* Effects */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --transition: 0.3s ease;
+}
+
+* {
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--light-gray);
+    color: var(--gray-800);
+    line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+/* Navbar */
+.navbar {
+    background: var(--white) !important;
+    box-shadow: var(--shadow-md);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--gray-900);
+    transition: var(--transition);
+}
+
+.navbar-brand:hover {
+    color: var(--primary-green);
+    transform: translateY(-1px);
+}
+
+.navbar-brand img {
+    border: 2px solid var(--primary-teal);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.navbar-brand:hover img {
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+}
+
+.navbar-brand span {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* Specific navbar logo and text classes */
+.tanvi-navbar-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--primary-teal);
+    box-shadow: var(--shadow-sm);
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.tanvi-navbar-logo:hover {
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+}
+
+.tanvi-navbar-text {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.navbar-nav .nav-link {
+    color: var(--gray-800) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--soft-cream);
+    color: var(--primary-teal) !important;
+    transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link.active {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white) !important;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--white);
+    min-height: calc(100vh - 80px);
+    box-shadow: var(--shadow-lg);
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 280px;
+    z-index: 1020;
+    transition: var(--transition);
+    border-right: 1px solid var(--gray-200);
+}
+
+.sidebar .nav-link {
+    color: var(--gray-800);
+    padding: 1rem 1.5rem;
+    border-left: 3px solid transparent;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    margin: 0.25rem 1rem;
+    border-radius: var(--border-radius);
+}
+
+.sidebar .nav-link:hover {
+    background: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+    transform: translateX(4px);
+}
+
+.sidebar .nav-link.active {
+    background: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+    font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 280px;
+    padding: 2rem;
+    margin-top: 80px;
+    transition: var(--transition);
+}
+
+/* Cards */
+.card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white);
+    border: none;
+    padding: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Forms */
+.form-floating {
+    margin-bottom: 1.5rem;
+}
+
+.form-floating .form-control,
+.form-floating .form-select {
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    transition: var(--transition);
+}
+
+.form-floating .form-control:focus,
+.form-floating .form-select:focus {
+    border-color: var(--primary-teal);
+    box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+}
+
+.form-floating label {
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-teal);
+    border-color: var(--primary-teal);
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.5rem;
+    transition: var(--transition);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary-custom {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white);
+    font-weight: 600;
+}
+
+.btn-primary-custom:hover {
+    background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+    color: var(--white);
+}
+
+.btn-outline-custom {
+    border: 2px solid var(--primary-teal);
+    color: var(--primary-teal);
+    background: transparent;
+}
+
+.btn-outline-custom:hover {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white);
+    border-color: var(--primary-green);
+}
+
+/* Tables */
+.table {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.table th {
+    background: var(--soft-cream);
+    color: var(--gray-800);
+    font-weight: 600;
+    border: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    border: none;
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.table tbody tr:hover {
+    background: var(--soft-cream);
+    transition: var(--transition);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+}
+
+.badge.bg-success {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+    color: var(--success) !important;
+}
+
+.badge.bg-warning {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+    color: #B8860B !important;
+}
+
+.badge.bg-danger {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    color: var(--danger) !important;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success);
+    border-left: 4px solid var(--success);
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #B8860B;
+    border-left: 4px solid var(--warning);
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+}
+
+/* Modals */
+.modal-content {
+    border: none;
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white);
+    border: none;
+    padding: 1.5rem;
+    font-weight: 600;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--gray-200);
+    padding: 1rem 1.5rem;
+    background: var(--light-gray);
+}
+
+/* --- Dropdown/Select Fixes --- */
+.form-select, .form-floating > .form-select {
+    width: 100% !important;
+    min-width: 0;
+    max-width: 100%;
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding-right: 2.5rem !important; /* space for arrow */
+    padding-left: 1rem !important;
+    height: calc(3.5rem + 2px) !important;
+    box-sizing: border-box;
+    background-position: right 1rem center;
+    background-size: 1.5em 1.5em;
+    line-height: 1.5;
+    color: var(--gray-800);
+    background-color: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+.form-select:focus {
+    border-color: var(--primary-teal);
+    box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+    outline: none;
+}
+.form-select option {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--gray-800);
+    background: var(--white);
+    white-space: normal;
+}
+@media (max-width: 767.98px) {
+    .form-select, .form-floating > .form-select {
+        font-size: 0.95rem;
+        height: calc(3rem + 2px) !important;
+        padding-left: 0.75rem !important;
+        padding-right: 2rem !important;
+    }
+}
+
+/* --- Floating Label Select Fix --- */
+.form-floating > .form-select {
+    height: 56px !important;
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+    padding-right: 2.5rem !important;
+    padding-left: 1rem !important;
+    line-height: 1.5;
+}
+.form-floating > label {
+    padding-left: 1rem !important;
+    pointer-events: none;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+/* Ensure action buttons in tables are always visible */
+.table td .btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-flex !important;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+} 
+
+/* Minimal highlight for selected time slot using Bootstrap color */
+.slot-btn.selected,
+.slot-btn.active {
+    box-shadow: 0 2px 8px rgba(13,202,240,0.18);
+    border: 2px solid #0a98b6 !important;
+    outline: none;
+} 
