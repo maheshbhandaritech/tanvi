@@ -1,1 +1,201 @@
+/* Common Header Styles for Tanvi Herbals */
+/* Include this CSS in all pages for consistent header */
 
+/* Navbar Container */
+.navbar {
+    background: var(--white) !important;
+    box-shadow: var(--shadow-md);
+    padding: 0.5rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+
+/* Logo and Brand */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--gray-900);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand:hover {
+    color: var(--primary-green);
+    transform: translateY(-1px);
+}
+
+/* Logo Image */
+.tanvi-navbar-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--primary-teal);
+    box-shadow: var(--shadow-sm);
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.tanvi-navbar-logo:hover {
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+}
+
+/* Brand Text */
+.tanvi-navbar-text {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+/* Navigation Links */
+.navbar-nav .nav-link {
+    color: var(--gray-800) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    /* display: flex;
+    align-items: center;
+    gap: 0.25rem; */
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--soft-cream);
+    color: var(--primary-teal) !important;
+    transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link.active {
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+    color: var(--white) !important;
+}
+
+/* Mobile Toggle */
+.navbar-toggler {
+    border: none;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--white);
+    min-height: calc(100vh - 80px);
+    box-shadow: var(--shadow-lg);
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 280px;
+    z-index: 1020;
+    transition: var(--transition);
+    border-right: 1px solid var(--gray-200);
+}
+
+.sidebar .nav-link {
+    color: var(--gray-800);
+    padding: 1rem 1.5rem;
+    border-left: 3px solid transparent;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    margin: 0.25rem 1rem;
+    border-radius: var(--border-radius);
+}
+
+.sidebar .nav-link:hover {
+    background: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+    transform: translateX(4px);
+}
+
+.sidebar .nav-link.active {
+    background: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+    font-weight: 600;
+}
+
+/* Mobile Sidebar */
+.offcanvas {
+    width: 250px;
+}
+
+.offcanvas .nav-link {
+    color: var(--gray-800);
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.offcanvas .nav-link:hover {
+    background-color: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+}
+
+.offcanvas .nav-link.active {
+    background-color: var(--soft-cream);
+    border-left-color: var(--primary-teal);
+    color: var(--primary-teal);
+    font-weight: 600;
+}
+
+/* Main Content Adjustment */
+.main-content {
+    margin-left: 280px;
+    padding: 1.5rem;
+    margin-top: 70px;
+    transition: var(--transition);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    .tanvi-navbar-text {
+        font-size: 1.1rem;
+    }
+} 
