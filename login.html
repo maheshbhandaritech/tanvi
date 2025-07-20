@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanvi Herbals - Login & Register</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            --primary-green: #228B22;
+            --primary-green-dark: #006400;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --dark-gray: #343A40;
+            --border-color: #E9ECEF;
+            --error-red: #DC3545;
+            --success-green: #28A745;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--soft-cream) 0%, #E8F5E8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .auth-container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .auth-body {
+            padding: 2rem;
+        }
+
+        /* Tab Styles */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1rem;
+            background: transparent;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--primary-green);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-right: 0;
+            background: var(--soft-cream);
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: none;
+        }
+        .nav-tabs .nav-link:hover {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(32,178,170,0.10);
+        }
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(34,139,34,0.15);
+        }
+        /* Remove/override any conflicting tab/button styles below this line */
+
+        /* Form Styles */
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating .form-control:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        .form-floating .form-control.is-invalid {
+            border-color: var(--error-red);
+        }
+
+        .form-floating .form-control.is-valid {
+            border-color: var(--success-green);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6C757D;
+            z-index: 10;
+        }
+
+        .form-floating .form-control:focus + .input-icon {
+            color: var(--primary-green);
+        }
+
+        .form-floating label {
+            padding-left: 3rem;
+            color: #6C757D;
+        }
+
+        .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        /* Button Styles */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            border: none;
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-primary-custom:hover, .btn-primary-custom:focus {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-teal));
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+            background: transparent;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-outline-custom:hover, .btn-outline-custom:focus {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        /* Link Styles */
+        .auth-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .auth-link:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
+
+        /* Validation Messages */
+        .invalid-feedback {
+            color: var(--error-red);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .valid-feedback {
+            color: var(--success-green);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            background: var(--white);
+            padding: 0 1rem;
+            color: #6C757D;
+            font-size: 0.875rem;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            border-radius: 20px 20px 0 0;
+            border: none;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            margin: 0 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991.98px) {
+            .auth-container {
+                max-width: 95vw;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.75rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 576px) {
+            body {
+                padding: 1rem;
+            }
+            .auth-container {
+                margin: 0;
+                max-width: 100vw;
+                border-radius: 0;
+            }
+            .auth-header {
+                padding: 1.2rem;
+            }
+            .auth-body {
+                padding: 1rem;
+            }
+            .nav-tabs {
+                gap: 0.5rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.6rem 0.7rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Loading Animation */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Success Animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success-animation {
+            animation: successPulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Header -->
+        <div class="auth-header">
+            <h1><i class="bi bi-leaf-fill me-2"></i>Tanvi Herbals</h1>
+            <p>Natural Healing, Modern Care</p>
+        </div>
+
+        <!-- Body -->
+        <div class="auth-body">
+            <!-- Tabs for Login Type -->
+            <ul class="nav nav-tabs" id="loginTypeTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobileLogin" type="button" role="tab">
+                        <i class="bi bi-phone me-2"></i>Login with Mobile
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="email-tab" data-bs-toggle="tab" data-bs-target="#emailLogin" type="button" role="tab">
+                        <i class="bi bi-envelope me-2"></i>Login with Email
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="loginTypeTabsContent">
+                <!-- Mobile Login Tab -->
+                <div class="tab-pane fade show active" id="mobileLogin" role="tabpanel">
+                    <form id="mobileLoginForm" novalidate>
+                        <div class="form-floating mb-3 position-relative">
+                            <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter mobile number" pattern="[0-9]{10}" required maxlength="10">
+                            <i class="bi bi-phone input-icon"></i>
+                            <label for="mobileNumber">Mobile Number</label>
+                            <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                        </div>
+                        <button type="button" class="btn btn-primary-custom mb-3 w-100" id="sendOtpBtn">
+                            <span class="btn-text">Send OTP</span>
+                            <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Sending...</span>
+                        </button>
+                        <div id="otpSection" class="d-none">
+                            <div class="d-flex justify-content-center mb-3">
+                                <input type="text" class="otp-input" maxlength="1" data-index="0">
+                                <input type="text" class="otp-input" maxlength="1" data-index="1">
+                                <input type="text" class="otp-input" maxlength="1" data-index="2">
+                                <input type="text" class="otp-input" maxlength="1" data-index="3">
+                                <input type="text" class="otp-input" maxlength="1" data-index="4">
+                                <input type="text" class="otp-input" maxlength="1" data-index="5">
+                            </div>
+                            <div class="text-center mb-3">
+                                <span class="text-muted">Didn't receive the code? </span>
+                                <a href="#" class="auth-link" id="resendOtpMobile">Resend</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100">
+                                <span class="btn-text">Verify OTP</span>
+                                <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Verifying...</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Email Login Tab -->
+                <div class="tab-pane fade" id="emailLogin" role="tabpanel">
+                    <form id="emailLoginForm" novalidate>
+                        <div class="form-floating mb-3 position-relative">
+                            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+                            <i class="bi bi-envelope input-icon"></i>
+                            <label for="loginEmail">Email address</label>
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                        <div class="form-floating mb-3 position-relative">
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                            <i class="bi bi-lock input-icon"></i>
+                            <label for="loginPassword">Password</label>
+                            <div class="invalid-feedback">Password is required.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom mb-3 w-100">
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Signing In...</span>
+                        </button>
+                        <div class="text-center">
+                            <a href="#" class="auth-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                                <i class="bi bi-question-circle me-1"></i>Forgot your password?
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-key me-2"></i>
+                        Reset Password
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Enter your email address and we'll send you a link to reset your password.</p>
+                    
+                    <form id="forgotPasswordForm">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="resetEmail" placeholder="name@example.com" required>
+                            <i class="bi bi-envelope input-icon"></i>
+                            <label for="resetEmail">Email address</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <span class="btn-text">Send Reset Link</span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-2"></span>
+                                Sending...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div class="modal fade" id="otpModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-shield-check me-2"></i>
+                        Verify OTP
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">We've sent a 6-digit code to your email. Please enter it below.</p>
+                    
+                    <form id="otpForm">
+                        <div class="d-flex justify-content-center mb-4">
+                            <input type="text" class="otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="otp-input" maxlength="1" data-index="4">
+                            <input type="text" class="otp-input" maxlength="1" data-index="5">
+                        </div>
+                        
+                        <div class="text-center mb-3">
+                            <span class="text-muted">Didn't receive the code? </span>
+                            <a href="#" class="auth-link" id="resendOtp">Resend</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <span class="btn-text">Verify OTP</span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-2"></span>
+                                Verifying...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            const forms = document.querySelectorAll('.needs-validation');
+            
+            // Mobile Login Form
+            const mobileLoginForm = document.getElementById('mobileLoginForm');
+            mobileLoginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                if (mobileLoginForm.checkValidity()) {
+                    showLoading(mobileLoginForm.querySelector('#sendOtpBtn'));
+                    
+                    // Simulate API call for sending OTP
+                    setTimeout(() => {
+                        hideLoading(mobileLoginForm.querySelector('#sendOtpBtn'));
+                        showSuccess(mobileLoginForm.querySelector('#sendOtpBtn'));
+                        
+                        // Show OTP section
+                        const otpSection = document.getElementById('otpSection');
+                        otpSection.classList.remove('d-none');
+                    }, 2000);
+                }
+                
+                mobileLoginForm.classList.add('was-validated');
+            });
+
+            // OTP Input Handling for Mobile Login
+            const otpInputsMobile = document.querySelectorAll('.otp-input');
+            otpInputsMobile.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1) {
+                        if (index < otpInputsMobile.length - 1) {
+                            otpInputsMobile[index + 1].focus();
+                        }
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0) {
+                        if (index > 0) {
+                            otpInputsMobile[index - 1].focus();
+                        }
+                    }
+                });
+            });
+
+            // Resend OTP for Mobile Login
+            document.getElementById('resendOtpMobile').addEventListener('click', function(e) {
+                e.preventDefault();
+                this.textContent = 'Sent!';
+                this.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    this.textContent = 'Resend';
+                    this.style.pointerEvents = 'auto';
+                }, 30000);
+            });
+
+            // Email Login Form
+            const emailLoginForm = document.getElementById('emailLoginForm');
+            emailLoginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                if (emailLoginForm.checkValidity()) {
+                    showLoading(emailLoginForm.querySelector('button[type="submit"]'));
+                    
+                    // Simulate API call for email login
+                    setTimeout(() => {
+                        hideLoading(emailLoginForm.querySelector('button[type="submit"]'));
+                        showSuccess(emailLoginForm.querySelector('button[type="submit"]'));
+                        
+                        // Redirect to dashboard after successful login
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    }, 2000);
+                }
+                
+                emailLoginForm.classList.add('was-validated');
+            });
+
+            // Forgot Password Form
+            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+            forgotPasswordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                showLoading(forgotPasswordForm.querySelector('button[type="submit"]'));
+                
+                // Simulate API call
+                setTimeout(() => {
+                    hideLoading(forgotPasswordForm.querySelector('button[type="submit"]'));
+                    
+                    // Close modal and show success message
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                    modal.hide();
+                    
+                    showAlert('Password reset link sent to your email!', 'success');
+                }, 2000);
+            });
+
+            // OTP Form (for email login)
+            const otpForm = document.getElementById('otpForm');
+            otpForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                showLoading(otpForm.querySelector('button[type="submit"]'));
+                
+                // Simulate OTP verification
+                setTimeout(() => {
+                    hideLoading(otpForm.querySelector('button[type="submit"]'));
+                    
+                    // Close modal and redirect
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('otpModal'));
+                    modal.hide();
+                    
+                    showAlert('Account created successfully!', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }, 2000);
+            });
+
+            // Resend OTP (for email login)
+            document.getElementById('resendOtp').addEventListener('click', function(e) {
+                e.preventDefault();
+                this.textContent = 'Sent!';
+                this.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    this.textContent = 'Resend';
+                    this.style.pointerEvents = 'auto';
+                }, 30000);
+            });
+
+            // Helper Functions
+            function showLoading(button) {
+                const btnText = button.querySelector('.btn-text');
+                const btnLoading = button.querySelector('.btn-loading');
+                
+                btnText.classList.add('d-none');
+                btnLoading.classList.remove('d-none');
+                button.disabled = true;
+            }
+
+            function hideLoading(button) {
+                const btnText = button.querySelector('.btn-text');
+                const btnLoading = button.querySelector('.btn-loading');
+                
+                btnText.classList.remove('d-none');
+                btnLoading.classList.add('d-none');
+                button.disabled = false;
+            }
+
+            function showSuccess(button) {
+                button.classList.add('success-animation');
+                setTimeout(() => {
+                    button.classList.remove('success-animation');
+                }, 500);
+            }
+
+            function showAlert(message, type) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                document.body.appendChild(alertDiv);
+                
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 5000);
+            }
+
+            // Real-time password validation
+            const emailPassword = document.getElementById('loginPassword');
+            emailPassword.addEventListener('input', function() {
+                if (this.value.length < 8) {
+                    this.setCustomValidity('Password must be at least 8 characters long');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+
+            // Real-time email validation
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(this.value)) {
+                        this.setCustomValidity('Please enter a valid email address');
+                    } else {
+                        this.setCustomValidity('');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

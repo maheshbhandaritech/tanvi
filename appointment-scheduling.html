@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanvi Herbals - Appointment Scheduling</title>
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="assets/css/header.css">
+    
+    <!-- Remove redundant inline styles and update navigation/sidebar below -->
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/img/logo.jpeg" alt="Tanvi Logo" class="tanvi-navbar-logo">
+                <span class="tanvi-navbar-text">Tanvi Herbals</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Desktop Navigation -->
+            <div class="navbar-nav ms-auto d-none d-lg-flex">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+                <a class="nav-link active" href="appointment-scheduling.html"><i class="bi bi-calendar-check me-1"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge me-1"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people me-1"></i>Patients</a>
+                <a class="nav-link" href="clinic-management.html"><i class="bi bi-building me-1"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical me-1"></i>Records</a>
+                <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up me-1"></i>Reports</a>
+                <!-- <a class="nav-link" href="patient/patient-login.html"><i class="bi bi-person-circle me-1"></i>Patient Portal</a> -->
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar (Desktop) -->
+    <nav class="sidebar d-none d-lg-block">
+        <div class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+            <a class="nav-link active" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+            <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+            <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+            <a class="nav-link" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+            <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+            <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+            <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </nav>
+    <!-- Mobile Sidebar Offcanvas -->
+    <div class="offcanvas offcanvas-start" id="sidebarOffcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-success">Tanvi Herbals</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="nav flex-column">
+                <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+                <a class="nav-link active" href="appointment-scheduling.html"><i class="bi bi-calendar-check"></i>Appointments</a>
+                <a class="nav-link" href="doctor-management.html"><i class="bi bi-person-badge"></i>Doctors</a>
+                <a class="nav-link" href="patient-management.html"><i class="bi bi-people"></i>Patients</a>
+                <a class="nav-link" href="clinic-management.html"><i class="bi bi-building"></i>Clinics</a>
+                <a class="nav-link" href="medical-records.html"><i class="bi bi-file-medical"></i>Records</a>
+                <a class="nav-link" href="reports-analytics.html"><i class="bi bi-graph-up"></i>Reports</a>
+                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- All forms, buttons, alerts, cards, and tables should use global classes and floating labels. Remove any redundant inline styles. -->
+</head>
+<body>
+<div class="main-content">
+    <div class="card mb-4">
+        <div class="card-header"><i class="bi bi-calendar-plus me-2"></i>Schedule Appointment</div>
+        <div class="card-body">
+            <form id="appointmentForm">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <div class="form-floating mb-2">
+                            <select class="form-select" id="doctorSelect" required>
+                                <option value="">Select Doctor</option>
+                                <option value="1">Dr. Rajesh Kumar (Ayurveda)</option>
+                                <option value="2">Dr. Meera Singh (Homeopathy)</option>
+                                <option value="3">Dr. Priya Sharma (General)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="patientSearch" placeholder="Search or enter patient name" required>
+                            <label for="patientSearch">Patient Name</label>
+                        </div>
+                    </div>
+                    <!-- Time Slot Selection Dropdown (Tanvi Herbals Style) -->
+                    <div class="col-md-4">
+                        <div class="mb-2">
+                            <!-- <label for="timeSlotDropdown" class="form-label fw-bold" style="color: #228B22;">Time Slot</label> -->
+                            <select id="timeSlotDropdown" class="form-select time-slot-dropdown"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center mt-2">
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="apptType" id="inPerson" value="In-Person" checked>
+                            <label class="form-check-label" for="inPerson">In-Person</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="apptType" id="telemedicine" value="Telemedicine">
+                            <label class="form-check-label" for="telemedicine">Telemedicine</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 text-md-end">
+                        <button type="submit" class="btn btn-primary-custom px-4"><i class="bi bi-check-circle me-2"></i>Confirm Appointment</button>
+                        <!-- <button type="submit" class="btn btn-outline-custom">Confirm Appointment</button> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><i class="bi bi-list-ul me-2"></i>Appointments</div>
+        <div class="card-body">
+            <div class="row g-3 filter-bar mb-3">
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="filterDate">
+                        <label for="filterDate">Date</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <select class="form-select" id="filterDoctor">
+                            <option value="">All Doctors</option>
+                            <option value="1">Dr. Rajesh Kumar</option>
+                            <option value="2">Dr. Meera Singh</option>
+                            <option value="3">Dr. Priya Sharma</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="filterPatient" placeholder="Patient Name">
+                        <label for="filterPatient">Patient Name</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <button type="submit" class="btn btn-primary-custom w-100"><i class="bi bi-search me-2"></i>Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor</th>
+                            <th>Patient</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTableBody">
+                        <tr>
+                            <td>2024-06-15</td>
+                            <td>09:00 AM</td>
+                            <td>Dr. Rajesh Kumar</td>
+                            <td>Priya Sharma</td>
+                            <td>In-Person</td>
+                            <td><span class="badge bg-success">Confirmed</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-06-15</td>
+                            <td>10:00 AM</td>
+                            <td>Dr. Meera Singh</td>
+                            <td>Amit Patel</td>
+                            <td>Telemedicine</td>
+                            <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Slot selection logic
+const slotBtns = document.querySelectorAll('.slot-btn');
+slotBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        slotBtns.forEach(b => b.classList.remove('selected', 'active'));
+        this.classList.add('selected', 'active');
+    });
+});
+// Simple filter logic for table
+const filterDate = document.getElementById('filterDate');
+const filterDoctor = document.getElementById('filterDoctor');
+const filterPatient = document.getElementById('filterPatient');
+const tableBody = document.getElementById('appointmentTableBody');
+[filterDate, filterDoctor, filterPatient].forEach(el => el.addEventListener('input', filterAppointments));
+function filterAppointments() {
+    const date = filterDate.value;
+    const doctor = filterDoctor.options[filterDoctor.selectedIndex].text.toLowerCase();
+    const patient = filterPatient.value.toLowerCase();
+    for (const row of tableBody.rows) {
+        const rowDate = row.cells[0].textContent;
+        const rowDoctor = row.cells[2].textContent.toLowerCase();
+        const rowPatient = row.cells[3].textContent.toLowerCase();
+        const matchDate = !date || rowDate === date;
+        const matchDoctor = !filterDoctor.value || rowDoctor.includes(doctor);
+        const matchPatient = !patient || rowPatient.includes(patient);
+        row.style.display = matchDate && matchDoctor && matchPatient ? '' : 'none';
+    }
+}
+
+// Sample slot data
+const slots = [
+  { time: "09:00 AM", status: "available" },
+  { time: "09:30 AM", status: "booked" },
+  { time: "10:00 AM", status: "available" },
+  { time: "10:30 AM", status: "available" },
+  { time: "11:00 AM", status: "booked" },
+  { time: "11:30 AM", status: "available" }
+];
+
+const dropdown = document.getElementById('timeSlotDropdown');
+const availableSlots = slots.filter(slot => slot.status === 'available');
+
+dropdown.innerHTML = '<option value="">Select a time slot</option>' +
+  availableSlots.map(slot => `<option value="${slot.time}">${slot.time}</option>`).join('');
+
+// Optional: handle selection
+// dropdown.addEventListener('change', function() {
+//   const selected = dropdown.value;
+//   // Your logic here
+// });
+</script>
+</body>
+</html> 
