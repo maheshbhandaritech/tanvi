@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login - Tanvi Herbals</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            --primary-green: #228B22;
+            --primary-green-dark: #006400;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-600: #6C757D;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
+            --border-color: #E9ECEF;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --transition: 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .login-card {
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .login-header .logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .login-body {
+            padding: 2rem;
+        }
+
+        .nav-tabs {
+            border: none;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1rem;
+            background: transparent;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--primary-green);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-right: 0;
+            background: var(--soft-cream);
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: none;
+        }
+        .nav-tabs .nav-link:hover {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(32,178,170,0.10);
+        }
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(34,139,34,0.15);
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating .form-control {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        .form-floating .form-control:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        .form-floating label {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            border: none;
+            color: var(--white);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-primary-custom:hover, .btn-primary-custom:focus {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-teal));
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+            background: transparent;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-outline-custom:hover, .btn-outline-custom:focus {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-links a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .auth-links a:hover {
+            color: var(--primary-green-dark);
+            text-decoration: underline;
+        }
+
+        .back-to-main {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .back-to-main:hover {
+            color: var(--primary-green);
+        }
+
+        .otp-container {
+            display: none; /* Changed from 'none' to 'block' for testing */
+        }
+
+        .otp-container.show {
+            display: block;
+        }
+
+        .otp-inputs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        .resend-otp {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .resend-otp a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resend-otp a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 1rem;
+            }
+            .login-card {
+                max-width: 100vw;
+            }
+            .login-header {
+                padding: 1.2rem;
+            }
+            .login-body {
+                padding: 1rem;
+            }
+            .nav-tabs {
+                gap: 0.5rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.6rem 0.7rem;
+                font-size: 0.95rem;
+            }
+            .back-to-main {
+                top: 1rem;
+                left: 1rem;
+            }
+            .otp-input {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <a href="index.html" class="back-to-main">
+        <i class="bi bi-arrow-left me-2"></i>Back to Main Site
+    </a> -->
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="bi bi-leaf-fill"></i>
+                </div>
+                <h1>Patient Login</h1>
+                <p>Welcome back! Please sign in to your account.</p>
+            </div>
+            
+            <div class="login-body">
+                <!-- Login Tabs -->
+                <ul class="nav nav-tabs" id="loginTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobile-login" type="button" role="tab">
+                            <i class="bi bi-phone me-2"></i>Login with Mobile
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="email-tab" data-bs-toggle="tab" data-bs-target="#email-login" type="button" role="tab">
+                            <i class="bi bi-envelope me-2"></i>Login with Email
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="loginTabContent">
+                    <!-- Mobile Login Tab -->
+                    <div class="tab-pane fade show active" id="mobile-login" role="tabpanel">
+                        <form id="mobileLoginForm" novalidate>
+                            <div class="form-floating">
+                                <input type="tel" class="form-control" id="patientMobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                                <label for="patientMobile">Mobile Number</label>
+                                <div class="invalid-feedback">
+                                    Please enter a valid 10-digit mobile number.
+                                </div>
+                            </div>
+                            
+                            <div class="otp-container" id="otpContainer">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="otpInput" placeholder="Enter OTP" maxlength="6" required>
+                                    <label for="otpInput">Enter OTP</label>
+                                    <div class="invalid-feedback">
+                                        Please enter the 6-digit OTP.
+                                    </div>
+                                </div>
+                                
+                                <button type="button" class="btn btn-primary-custom mb-3" id="submitOtpBtn">
+                                    <span class="btn-text">Submit OTP</span>
+                                    <span class="btn-loading d-none">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>
+                                        Verifying...
+                                    </span>
+                                </button>
+                                
+                                <div class="resend-otp">
+                                    <a href="#" id="resendOtp">Resend OTP</a>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary-custom mb-3" id="mobileSubmitBtn">
+                                <span class="btn-text">Send OTP</span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Sending...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Email Login Tab -->
+                    <div class="tab-pane fade" id="email-login" role="tabpanel">
+                        <form id="emailLoginForm" novalidate>
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="patientEmail" placeholder="Email" required>
+                                <label for="patientEmail">Email Address</label>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="patientPassword" placeholder="Password" required>
+                                <label for="patientPassword">Password</label>
+                                <div class="invalid-feedback">
+                                    Please enter your password.
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom mb-3">
+                                <span class="btn-text">Sign In</span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Signing in...
+                                </span>
+                            </button>
+                            <div class="text-center">
+                                <a href="patient-forgot-password.html" class="auth-link">
+                                <!-- <a href="#" class="auth-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal"> -->
+                                    <i class="bi bi-question-circle me-1"></i>Forgot your password?
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="auth-links">
+                    <!-- Admin login link removed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <!-- <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-key me-2"></i>
+                        Reset Password
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Enter your email address and we'll send you a link to reset your password.</p>
+                    <form id="forgotPasswordForm">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="resetEmail" placeholder="name@example.com" required>
+                            <i class="bi bi-envelope input-icon"></i>
+                            <label for="resetEmail">Email address</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <span class="btn-text">Send Reset Link</span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-2"></span>
+                                Sending...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileForm = document.getElementById('mobileLoginForm');
+            const emailForm = document.getElementById('emailLoginForm');
+            const otpContainer = document.getElementById('otpContainer');
+            const mobileSubmitBtn = document.getElementById('mobileSubmitBtn');
+            const btnText = mobileSubmitBtn.querySelector('.btn-text');
+            const btnLoading = mobileSubmitBtn.querySelector('.btn-loading');
+            const submitOtpBtn = document.getElementById('submitOtpBtn');
+            const submitOtpBtnText = submitOtpBtn.querySelector('.btn-text');
+            const submitOtpBtnLoading = submitOtpBtn.querySelector('.btn-loading');
+            const resendOtpBtn = document.getElementById('resendOtp');
+            
+            let otpSent = false;
+            
+            // Mobile Login Form Handler
+            mobileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (mobileForm.checkValidity()) {
+                    // Send OTP
+                    btnText.classList.add('d-none');
+                    btnLoading.classList.remove('d-none');
+                    mobileSubmitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        otpContainer.classList.add('show');
+                        btnText.classList.remove('d-none');
+                        btnLoading.classList.add('d-none');
+                        mobileSubmitBtn.disabled = false;
+                        otpSent = true;
+                        
+                        // Show success message
+                        showAlert('OTP sent successfully to your mobile number!', 'success');
+                    }, 1500);
+                } else {
+                    mobileForm.classList.add('was-validated');
+                }
+            });
+            
+            // Submit OTP Button Handler
+            submitOtpBtn.addEventListener('click', function() {
+                const otpInput = document.getElementById('otpInput');
+                
+                if (otpInput.value.length === 6) {
+                    submitOtpBtnText.classList.add('d-none');
+                    submitOtpBtnLoading.classList.remove('d-none');
+                    submitOtpBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        // Redirect to patient dashboard
+                        window.location.href = 'patient-dashboard.html';
+                    }, 1500);
+                } else {
+                    otpInput.setCustomValidity('Please enter 6-digit OTP');
+                    otpInput.reportValidity();
+                }
+            });
+            
+            // Email Login Form Handler
+            emailForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (emailForm.checkValidity()) {
+                    const submitBtn = emailForm.querySelector('button[type="submit"]');
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const btnLoading = submitBtn.querySelector('.btn-loading');
+                    
+                    btnText.classList.add('d-none');
+                    btnLoading.classList.remove('d-none');
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        // Redirect to patient dashboard
+                        window.location.href = 'patient-dashboard.html';
+                    }, 1500);
+                } else {
+                    emailForm.classList.add('was-validated');
+                }
+            });
+            
+            // Resend OTP Handler
+            resendOtpBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                btnText.classList.add('d-none');
+                btnLoading.classList.remove('d-none');
+                mobileSubmitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    btnText.classList.remove('d-none');
+                    btnLoading.classList.add('d-none');
+                    mobileSubmitBtn.disabled = false;
+                    showAlert('OTP resent successfully!', 'success');
+                }, 1500);
+            });
+            
+            // Tab Change Handler - Reset forms when switching tabs
+            const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+            tabButtons.forEach(button => {
+                button.addEventListener('shown.bs.tab', function() {
+                    // Reset forms
+                    mobileForm.reset();
+                    emailForm.reset();
+                    mobileForm.classList.remove('was-validated');
+                    emailForm.classList.remove('was-validated');
+                    
+                    // Reset mobile login state
+                    otpContainer.classList.remove('show');
+                    otpSent = false;
+                });
+            });
+            
+            // OTP Input Handler - Auto focus next input
+            const otpInput = document.getElementById('otpInput');
+            otpInput.addEventListener('input', function() {
+                if (this.value.length === 6) {
+                    this.setCustomValidity('');
+                }
+            });
+            
+
+            
+            // Helper function to show alerts
+            function showAlert(message, type) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                const loginBody = document.querySelector('.login-body');
+                loginBody.insertBefore(alertDiv, loginBody.firstChild);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            }
+
+            // Forgot Password Form
+            // const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+            // if (forgotPasswordForm) {
+            //     forgotPasswordForm.addEventListener('submit', function(event) {
+            //         event.preventDefault();
+            //         const btn = forgotPasswordForm.querySelector('button[type="submit"]');
+            //         const btnText = btn.querySelector('.btn-text');
+            //         const btnLoading = btn.querySelector('.btn-loading');
+            //         btnText.classList.add('d-none');
+            //         btnLoading.classList.remove('d-none');
+            //         btn.disabled = true;
+            //         setTimeout(() => {
+            //             btnText.classList.remove('d-none');
+            //             btnLoading.classList.add('d-none');
+            //             btn.disabled = false;
+            //             const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            //             modal.hide();
+            //             showAlert('Password reset link sent to your email!', 'success');
+            //         }, 2000);
+            //     });
+            // }
+        });
+    </script>
+</body>
+</html> 

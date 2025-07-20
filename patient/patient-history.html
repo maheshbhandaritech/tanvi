@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical History - Tanvi Herbals</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            --primary-green: #228B22;
+            --primary-green-dark: #006400;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-600: #6C757D;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
+            --border-color: #E9ECEF;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --transition: 0.3s ease;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Patient Header */
+        .patient-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem 0 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+        .patient-header .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(32,178,170,0.13);
+            background: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .patient-nav {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .patient-nav .nav-link {
+            color: var(--gray-800);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            margin: 0 0.25rem;
+        }
+
+        .patient-nav .nav-link:hover {
+            background: var(--soft-cream);
+            color: var(--primary-teal);
+        }
+
+        .patient-nav .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            color: var(--soft-cream);
+            text-decoration: none;
+        }
+
+        /* History Page Specific */
+        .history-card {
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .history-header {
+            background: var(--white);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .filter-section {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            border: none;
+            color: var(--white);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-download:hover, .btn-download:focus {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-teal));
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+        .btn-view {
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+            background: transparent;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-view:hover, .btn-view:focus {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .status-confirmed {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.1);
+            color: #B8860B;
+        }
+
+        .status-cancelled {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .table th {
+            background: var(--soft-cream);
+            color: var(--gray-800);
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+
+        .table td {
+            border: none;
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table tbody tr:hover {
+            background: var(--soft-cream);
+            transition: var(--transition);
+        }
+
+        .pagination .page-link {
+            color: var(--primary-teal);
+            border: 1px solid var(--gray-200);
+            padding: 0.75rem 1rem;
+            transition: var(--transition);
+        }
+        .pagination .page-link:hover {
+            background: var(--soft-cream);
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            border-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .patient-nav .nav-link {
+                padding: 0.5rem 1rem;
+                margin: 0.125rem;
+                font-size: 0.875rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            
+            .btn-download, .btn-view {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Patient Header -->
+    <div class="patient-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center text-md-start mb-3 mb-md-0">
+                    <img src="../assets/img/logo.jpeg" alt="Tanvi Herbals Logo" class="logo-img">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="mb-1">Medical History</h1>
+                    <p class="mb-0 opacity-75">View and download your medical records</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="patient-login.html" class="logout-btn">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Navigation -->
+    <div class="patient-nav">
+        <div class="container">
+            <nav class="nav justify-content-center">
+                <a class="nav-link" href="patient-dashboard.html">
+                    <i class="bi bi-house me-2"></i>Dashboard
+                </a>
+                <a class="nav-link active" href="patient-history.html">
+                    <i class="bi bi-clock-history me-2"></i>Medical History
+                </a>
+                <a class="nav-link" href="patient-doctor-list.html">
+                    <i class="bi bi-person-badge me-2"></i>Our Doctors
+                </a>
+                <a class="nav-link" href="patient-profile.html">
+                    <i class="bi bi-person-circle me-2"></i>My Profile
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="filterDate">
+                        <label for="filterDate">Filter by Date</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <select class="form-select" id="filterDoctor">
+                            <option value="">All Doctors</option>
+                            <option value="dr-rajesh">Dr. Rajesh Kumar</option>
+                            <option value="dr-meera">Dr. Meera Singh</option>
+                            <option value="dr-priya">Dr. Priya Sharma</option>
+                        </select>
+                        <label for="filterDoctor">Filter by Doctor</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <select class="form-select" id="filterStatus">
+                            <option value="">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <label for="filterStatus">Filter by Status</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-outline-success w-100 h-100" onclick="applyFilters()">
+                        <i class="bi bi-funnel me-2"></i>Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="history-card">
+            <div class="history-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h5 class="mb-0">Medical Records</h5>
+                        <small class="text-muted">Showing 12 records</small>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <button class="btn btn-outline-success" onclick="exportHistory()">
+                            <i class="bi bi-download me-2"></i>Export All
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Doctor</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">Today, 2:30 PM</div>
+                                <small class="text-muted">15 Dec 2024</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">Dr. Rajesh Kumar</div>
+                                <small class="text-muted">Ayurveda Specialist</small>
+                            </td>
+                            <td>General Consultation</td>
+                            <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                            <td>
+                                <button class="btn btn-view me-2" onclick="viewRecord(1)">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </button>
+                                <button class="btn btn-download" onclick="downloadPrescription(1)">
+                                    <i class="bi bi-download me-1"></i>Download
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">Tomorrow, 10:00 AM</div>
+                                <small class="text-muted">16 Dec 2024</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">Dr. Meera Singh</div>
+                                <small class="text-muted">Homeopathy Specialist</small>
+                            </td>
+                            <td>Follow-up Visit</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>
+                                <button class="btn btn-view me-2" onclick="viewRecord(2)">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </button>
+                                <button class="btn btn-download" disabled>
+                                    <i class="bi bi-download me-1"></i>Download
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">Last Week, 4:15 PM</div>
+                                <small class="text-muted">8 Dec 2024</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">Dr. Priya Sharma</div>
+                                <small class="text-muted">General Physician</small>
+                            </td>
+                            <td>Blood Test Review</td>
+                            <td><span class="status-badge status-completed">Completed</span></td>
+                            <td>
+                                <button class="btn btn-view me-2" onclick="viewRecord(3)">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </button>
+                                <button class="btn btn-download" onclick="downloadPrescription(3)">
+                                    <i class="bi bi-download me-1"></i>Download
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">2 weeks ago, 11:30 AM</div>
+                                <small class="text-muted">1 Dec 2024</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">Dr. Rajesh Kumar</div>
+                                <small class="text-muted">Ayurveda Specialist</small>
+                            </td>
+                            <td>Initial Consultation</td>
+                            <td><span class="status-badge status-completed">Completed</span></td>
+                            <td>
+                                <button class="btn btn-view me-2" onclick="viewRecord(4)">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </button>
+                                <button class="btn btn-download" onclick="downloadPrescription(4)">
+                                    <i class="bi bi-download me-1"></i>Download
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">1 month ago, 3:00 PM</div>
+                                <small class="text-muted">15 Nov 2024</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">Dr. Meera Singh</div>
+                                <small class="text-muted">Homeopathy Specialist</small>
+                            </td>
+                            <td>Prescription Renewal</td>
+                            <td><span class="status-badge status-completed">Completed</span></td>
+                            <td>
+                                <button class="btn btn-view me-2" onclick="viewRecord(5)">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </button>
+                                <button class="btn btn-download" onclick="downloadPrescription(5)">
+                                    <i class="bi bi-download me-1"></i>Download
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="p-3 border-top">
+                <nav aria-label="Medical history pagination">
+                    <ul class="pagination justify-content-center mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function applyFilters() {
+            // Filter logic would go here
+            console.log('Applying filters...');
+        }
+
+        function viewRecord(recordId) {
+            // View record logic would go here
+            console.log('Viewing record:', recordId);
+            alert('Viewing medical record ' + recordId);
+        }
+
+        function downloadPrescription(recordId) {
+            // Download logic would go here
+            console.log('Downloading prescription for record:', recordId);
+            
+            // Simulate download
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = `prescription-${recordId}.pdf`;
+            link.click();
+            
+            alert('Downloading prescription for record ' + recordId);
+        }
+
+        function exportHistory() {
+            // Export all records logic would go here
+            console.log('Exporting all records...');
+            alert('Exporting all medical records...');
+        }
+    </script>
+</body>
+</html> 

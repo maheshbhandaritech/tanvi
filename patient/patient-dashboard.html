@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Tanvi Herbals</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            --primary-green: #228B22;
+            --primary-green-dark: #006400;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-600: #6C757D;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
+            --border-color: #E9ECEF;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --transition: 0.3s ease;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Patient Dashboard Specific Styles */
+        .patient-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem 0 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+        .patient-header .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(32,178,170,0.13);
+            background: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .patient-nav {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .patient-nav .nav-link {
+            color: var(--gray-800);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            margin: 0 0.25rem;
+        }
+
+        .patient-nav .nav-link:hover {
+            background: var(--soft-cream);
+            color: var(--primary-teal);
+        }
+
+        .patient-nav .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-teal);
+            margin: 0 auto 1rem;
+        }
+
+        .stats-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .stats-icon.appointments { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .stats-icon.prescriptions { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .stats-icon.doctors { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        .stats-icon.visits { background: linear-gradient(135deg, #4CAF50, #388E3C); }
+
+        .stats-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .stats-label {
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .quick-actions {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--gray-800);
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--primary-teal);
+        }
+
+        .recent-appointments {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .appointment-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+
+        .appointment-item:hover {
+            background: var(--soft-cream);
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none;
+        }
+
+        .appointment-date {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .appointment-doctor {
+            color: var(--primary-teal);
+            font-weight: 500;
+        }
+
+        .appointment-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-confirmed {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.1);
+            color: #B8860B;
+        }
+
+        .status-completed {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            color: var(--primary-teal);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .patient-nav .nav-link {
+                padding: 0.5rem 1rem;
+                margin: 0.125rem;
+                font-size: 0.875rem;
+            }
+            
+            .profile-header {
+                padding: 1.5rem;
+            }
+            
+            .stats-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Patient Header -->
+    <div class="patient-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center text-md-start mb-3 mb-md-0">
+                    <img src="../assets/img/logo.jpeg" alt="Tanvi Herbals Logo" class="logo-img">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="mb-1">Welcome back, Priya Sharma!</h1>
+                    <p class="mb-0 opacity-75">Patient ID: PT001 | Member since January 2024</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="patient-login.html" class="logout-btn">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Navigation -->
+    <div class="patient-nav">
+        <div class="container">
+            <nav class="nav justify-content-center">
+                <a class="nav-link active" href="patient-dashboard.html">
+                    <i class="bi bi-house me-2"></i>Dashboard
+                </a>
+                <a class="nav-link" href="patient-history.html">
+                    <i class="bi bi-clock-history me-2"></i>Medical History
+                </a>
+                <a class="nav-link" href="patient-doctor-list.html">
+                    <i class="bi bi-person-badge me-2"></i>Our Doctors
+                </a>
+                <a class="nav-link" href="patient-profile.html">
+                    <i class="bi bi-person-circle me-2"></i>My Profile
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon appointments">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="stats-number">12</div>
+                    <div class="stats-label">Total Appointments</div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon prescriptions">
+                        <i class="bi bi-file-earmark-medical"></i>
+                    </div>
+                    <div class="stats-number">8</div>
+                    <div class="stats-label">Prescriptions</div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon doctors">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="stats-number">3</div>
+                    <div class="stats-label">Doctors Consulted</div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon visits">
+                        <i class="bi bi-heart-pulse"></i>
+                    </div>
+                    <div class="stats-number">15</div>
+                    <div class="stats-label">Clinic Visits</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Profile Card -->
+            <div class="col-lg-4 mb-4">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h3>Priya Sharma</h3>
+                        <p class="mb-0">Patient</p>
+                    </div>
+                    <div class="p-3">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="border-end">
+                                    <div class="fw-bold text-primary">28</div>
+                                    <small class="text-muted">Age</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="fw-bold text-primary">Female</div>
+                                <small class="text-muted">Gender</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="mb-2">
+                            <i class="bi bi-envelope me-2 text-muted"></i>
+                            <small>priya.sharma@email.com</small>
+                        </div>
+                        <div class="mb-2">
+                            <i class="bi bi-telephone me-2 text-muted"></i>
+                            <small>+91 98765 43210</small>
+                        </div>
+                        <div class="mb-0">
+                            <i class="bi bi-geo-alt me-2 text-muted"></i>
+                            <small>Mumbai, Maharashtra</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h5 class="mb-3">Quick Actions</h5>
+                    <a href="patient-history.html" class="action-btn">
+                        <i class="bi bi-clock-history"></i>
+                        <div>
+                            <div class="fw-semibold">View Medical History</div>
+                            <small class="text-muted">Check your past records</small>
+                        </div>
+                    </a>
+                    <a href="patient-doctor-list.html" class="action-btn">
+                        <i class="bi bi-person-badge"></i>
+                        <div>
+                            <div class="fw-semibold">Find Doctors</div>
+                            <small class="text-muted">Browse our specialists</small>
+                        </div>
+                    </a>
+                    <a href="patient-profile.html" class="action-btn">
+                        <i class="bi bi-person-circle"></i>
+                        <div>
+                            <div class="fw-semibold">Update Profile</div>
+                            <small class="text-muted">Edit your information</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Appointments -->
+            <div class="col-lg-8">
+                <div class="recent-appointments">
+                    <div class="p-3 border-bottom">
+                        <h5 class="mb-0">Recent Appointments</h5>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="appointment-date">Today, 2:30 PM</div>
+                                <div class="appointment-doctor">Dr. Rajesh Kumar</div>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">General Consultation</small>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <span class="appointment-status status-confirmed">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="appointment-date">Tomorrow, 10:00 AM</div>
+                                <div class="appointment-doctor">Dr. Meera Singh</div>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Follow-up Visit</small>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <span class="appointment-status status-pending">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="appointment-date">Last Week, 4:15 PM</div>
+                                <div class="appointment-doctor">Dr. Priya Sharma</div>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Blood Test Review</small>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <span class="appointment-status status-completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 text-center">
+                        <a href="patient-history.html" class="btn btn-outline-primary">
+                            View All Appointments
+                        </a>
+                        <!-- Brand button style -->
+                        <style>
+                        .btn-outline-primary {
+                            border: 2px solid var(--primary-teal) !important;
+                            color: var(--primary-teal) !important;
+                            background: transparent !important;
+                            font-weight: 600;
+                            padding: 1rem 2rem;
+                            border-radius: 12px;
+                            font-size: 1rem;
+                            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+                            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+                        }
+                        .btn-outline-primary:hover, .btn-outline-primary:focus {
+                            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green)) !important;
+                            color: var(--white) !important;
+                            border-color: var(--primary-green) !important;
+                            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+                            transform: translateY(-2px);
+                        }
+                        </style>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

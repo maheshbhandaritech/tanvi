@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - Tanvi Herbals</title>
+    
+    <!-- Bootstrap 5.3+ CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    
+    <style>
+        :root {
+            --primary-teal: #20B2AA;
+            --primary-green: #228B22;
+            --primary-green-dark: #006400;
+            --soft-cream: #F5F5DC;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-600: #6C757D;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
+            --border-color: #E9ECEF;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --transition: 0.3s ease;
+        }
+
+        body {
+            background: var(--light-gray);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Patient Header */
+        .patient-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 2rem 0 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+        .patient-header .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(32,178,170,0.13);
+            background: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .patient-nav {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .patient-nav .nav-link {
+            color: var(--gray-800);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            margin: 0 0.25rem;
+        }
+
+        .patient-nav .nav-link:hover {
+            background: var(--soft-cream);
+            color: var(--primary-teal);
+        }
+        .patient-nav .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            color: var(--soft-cream);
+            text-decoration: none;
+        }
+
+        /* Doctor Cards */
+        .doctor-card {
+            background: var(--white);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .doctor-header {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .doctor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-teal);
+            margin: 0 auto 1rem;
+            border: 3px solid var(--white);
+        }
+
+        .doctor-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+            border: 2px solid var(--white);
+        }
+
+        .doctor-body {
+            padding: 1.5rem;
+        }
+
+        .doctor-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .doctor-specialty {
+            color: var(--primary-teal);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .doctor-experience {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .doctor-info {
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .info-item i {
+            color: var(--gray-600);
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        .doctor-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            border: none;
+            color: var(--white);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            flex: 1;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-book:hover, .btn-book:focus {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-teal));
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+        .btn-profile {
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+            background: transparent;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            flex: 1;
+            box-shadow: 0 2px 8px rgba(32,178,170,0.07);
+        }
+        .btn-profile:hover, .btn-profile:focus {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-green));
+            color: var(--white);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(32,178,170,0.18);
+            transform: translateY(-2px);
+        }
+
+        /* Search and Filter */
+        .search-section {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-600);
+            z-index: 10;
+        }
+
+        .filter-select {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, 0.15);
+        }
+
+        .stats-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .patient-nav .nav-link {
+                padding: 0.5rem 1rem;
+                margin: 0.125rem;
+                font-size: 0.875rem;
+            }
+            
+            .doctor-actions {
+                flex-direction: column;
+            }
+            
+            .btn-book, .btn-profile {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Patient Header -->
+    <div class="patient-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center text-md-start mb-3 mb-md-0">
+                    <img src="../assets/img/logo.jpeg" alt="Tanvi Herbals Logo" class="logo-img">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="mb-1">Our Doctors</h1>
+                    <p class="mb-0 opacity-75">Meet our experienced healthcare professionals</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="patient-login.html" class="logout-btn">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Navigation -->
+    <div class="patient-nav">
+        <div class="container">
+            <nav class="nav justify-content-center">
+                <a class="nav-link" href="patient-dashboard.html">
+                    <i class="bi bi-house me-2"></i>Dashboard
+                </a>
+                <a class="nav-link" href="patient-history.html">
+                    <i class="bi bi-clock-history me-2"></i>Medical History
+                </a>
+                <a class="nav-link active" href="patient-doctor-list.html">
+                    <i class="bi bi-person-badge me-2"></i>Our Doctors
+                </a>
+                <a class="nav-link" href="patient-profile.html">
+                    <i class="bi bi-person-circle me-2"></i>My Profile
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="stats-number">8</div>
+                    <div class="stats-label">Total Doctors</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="stats-number">5</div>
+                    <div class="stats-label">Specialties</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="stats-number">15+</div>
+                    <div class="stats-label">Years Experience</div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="stats-number">1000+</div>
+                    <div class="stats-label">Patients Treated</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-section">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="position-relative">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="form-control search-input" placeholder="Search doctors..." id="searchDoctors">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select filter-select" id="filterSpecialty">
+                        <option value="">All Specialties</option>
+                        <option value="ayurveda">Ayurveda</option>
+                        <option value="homeopathy">Homeopathy</option>
+                        <option value="general">General Medicine</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="dermatology">Dermatology</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select filter-select" id="filterExperience">
+                        <option value="">All Experience</option>
+                        <option value="0-5">0-5 years</option>
+                        <option value="5-10">5-10 years</option>
+                        <option value="10-15">10-15 years</option>
+                        <option value="15+">15+ years</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-success w-100 h-100" onclick="applyFilters()">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctors Grid -->
+        <div class="row">
+            <!-- Doctor 1 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Rajesh Kumar</h4>
+                        <p class="mb-0">Ayurveda Specialist</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>15+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Mumbai Central</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43210</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.rajesh@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 9 AM - 6 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(1)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(1)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Meera Singh</h4>
+                        <p class="mb-0">Homeopathy Specialist</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>12+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Andheri West</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43211</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.meera@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 10 AM - 7 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(2)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(2)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Priya Sharma</h4>
+                        <p class="mb-0">General Physician</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>8+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Bandra East</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43212</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.priya@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 8 AM - 5 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(3)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(3)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 4 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Amit Patel</h4>
+                        <p class="mb-0">Cardiologist</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>18+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Worli</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43213</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.amit@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 9 AM - 6 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(4)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(4)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 5 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Sunita Devi</h4>
+                        <p class="mb-0">Dermatologist</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>10+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Juhu</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43214</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.sunita@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 10 AM - 7 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(5)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(5)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 6 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="doctor-card">
+                    <div class="doctor-header">
+                        <div class="doctor-status"></div>
+                        <div class="doctor-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h4>Dr. Ramesh Kumar</h4>
+                        <p class="mb-0">Ayurveda Specialist</p>
+                    </div>
+                    <div class="doctor-body">
+                        <div class="doctor-experience">
+                            <i class="bi bi-clock me-1"></i>20+ years experience
+                        </div>
+                        <div class="doctor-info">
+                            <div class="info-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <span>Dadar</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-telephone"></i>
+                                <span>+91 98765 43215</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-envelope"></i>
+                                <span>dr.ramesh@tanviherbals.com</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-clock"></i>
+                                <span>Mon-Sat: 8 AM - 5 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-actions">
+                            <button class="btn btn-book" onclick="bookAppointment(6)">
+                                <i class="bi bi-calendar-plus me-1"></i>Book Appointment
+                            </button>
+                            <button class="btn btn-profile" onclick="viewProfile(6)">
+                                <i class="bi bi-person me-1"></i>View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3+ JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchDoctors').value.toLowerCase();
+            const specialty = document.getElementById('filterSpecialty').value;
+            const experience = document.getElementById('filterExperience').value;
+            
+            console.log('Applying filters:', { searchTerm, specialty, experience });
+            // Filter logic would go here
+        }
+
+        function bookAppointment(doctorId) {
+            console.log('Booking appointment with doctor:', doctorId);
+            // Redirect to appointment booking page
+            window.location.href = 'appointment-scheduling.html';
+        }
+
+        function viewProfile(doctorId) {
+            console.log('Viewing profile of doctor:', doctorId);
+            // Show doctor profile modal or redirect to profile page
+            alert('Viewing doctor profile ' + doctorId);
+        }
+
+        // Search functionality
+        document.getElementById('searchDoctors').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            // Search logic would go here
+        });
+    </script>
+</body>
+</html> 
